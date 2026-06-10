@@ -4,7 +4,7 @@
 This repository contains the data and code for reproducing the figures in the following publication:
 
 
-Koch, N. A. & Khadra, A. (2026). Gap junctional coupling of molecular layer interneurons enables transient NMDA driven synchronization. bioRxiv. doi:[doi](https://doi.org/doi)
+Koch, N. A. & Khadra, A. (2026). Gap junctional coupling of molecular layer interneurons enables transient NMDA driven synchronization. bioRxiv. doi: [10.64898/2026.05.28.728326](https://doi.org/10.64898/2026.05.28.728326)
 
 
 
