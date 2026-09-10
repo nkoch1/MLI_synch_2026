@@ -271,9 +271,24 @@ ax_0_2_raster.text(-0.05, 1.1, "$(letters[3])", transform=ax_0_2_raster.transAxe
 ax_ggap_sum.text(-0.05, 1.05, "$(letters[4])", transform=ax_ggap_sum.transAxes, size=letter_size, weight="bold")
 
 
-plt.savefig(plotsdir("Figure_5_Network_synch_input_nsynch_poisson.png"), dpi=600)
-plt.savefig(plotsdir("Figure_5_Network_synch_input_nsynch_poisson.pdf"), dpi=600)
-plt.savefig(plotsdir("Figure_5_Network_synch_input_nsynch_poisson.eps"), dpi=600)
+plt.savefig(plotsdir("Figure_3_Network_synch_input_nsynch_poisson.png"), dpi=600)
+plt.savefig(plotsdir("Figure_3_Network_synch_input_nsynch_poisson.pdf"), dpi=600)
+plt.savefig(plotsdir("Figure_3_Network_synch_input_nsynch_poisson.eps"), dpi=600)
 plt.show()
 
+
+#%%
+mean_val = round.(mean(peak_coactivity_array[:,:]', dims=1), digits=3)
+std_val = round.(std(peak_coactivity_array[:,:]', dims=1), digits=3)
+
+["$(n) x: $(mean_val) ± $(std_val)%" for (n, mean_val, std_val) in zip(n_array_labels, mean_val, std_val)]
+
+#%%
+@pyimport scipy as sp
+
+# ggap 
+x = [collect((λ_rate_synch * ones(1, 100)))...]
+y = [collect(peak_coactivity_array[:,:])...]
+
+rho, p = sp.stats.spearmanr(x,y)
 

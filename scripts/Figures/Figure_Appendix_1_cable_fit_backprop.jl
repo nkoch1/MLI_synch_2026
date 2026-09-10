@@ -182,7 +182,6 @@ ax_scheme.text(0.85, 0.5, "49", ha="center", va="center", size=num_fsize)
 ax_scheme.vlines(0.9, 0.4, 0.6,linestyle=":", color="k", lw=2)
 ax_scheme.text(0.95, 0.5, "50", ha="center", va="center", size=num_fsize)
 
-# ax_scheme.hlines(0.3, 0.3475, 1.0025, color="k", lw=2)
 ax_scheme.hlines(0.315, 0.3475, 1.0025, color="k", lw=2)
 ax_scheme.vlines(0.35, 0.3, 0.35, color="k", lw=2)
 ax_scheme.vlines(1, 0.3, 0.35, color="k", lw=2)
@@ -262,7 +261,7 @@ ax_backprop_zoom.text(x_letter, y_letter, "$(letters[6])", transform=ax_backprop
 
 
 
-plt.savefig(plotsdir("Figure_1_cable_fit_backprop.png"), dpi=600)
-plt.savefig(plotsdir("Figure_1_cable_fit_backprop.eps"), dpi=600)
-plt.savefig(plotsdir("Figure_1_cable_fit_backprop.pdf"), dpi=600)
+plt.savefig(plotsdir("Figure_Appendix_1_cable_fit_backprop.png"), dpi=600)
+plt.savefig(plotsdir("Figure_Appendix_1_cable_fit_backprop.eps"), dpi=600)
+plt.savefig(plotsdir("Figure_Appendix_1_cable_fit_backprop.pdf"), dpi=600)
 plt.show()

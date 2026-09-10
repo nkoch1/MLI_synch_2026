@@ -20,7 +20,6 @@ p_int = 5
 position_array = collect(1:p_int:51)
 hilb_spike_num = 5
 
-# ggap_array = [0, 0.01, 0.03162277660168379, 0.1, 0.31622776601683794, 1, 3.1622776601683795, 10, 31.622776601683793]
 ggap_array = [
                 0, 
                 0.01,
@@ -45,7 +44,6 @@ ggap_array = [
 param = Dict(
     "n_phase" => n_phase, 
     "ggap_max" => maximum(ggap_array),
-    # "ggap_n" => length(ggap_array), 
     "ggap_min" => minimum(ggap_array),
     "pos_int" => p_int,
     "hilb_spike_num" => hilb_spike_num,
@@ -90,8 +88,6 @@ mean_peak_phase_end_array_WT = wload(datadir("simulations", "gapjxn_charac", sav
 tau_array_WT = wload(datadir("simulations", "gapjxn_charac", save_name),  "tau_array");
 
 tau_array_WT2 = deepcopy(tau_array_WT)
-# tau_array_WT2[tau_array_WT2 .> 5*30000.] .= 0.
-# tau_array_WT2[tau_array_WT2 .> 30000.] .= NaN
 
 condition_label = Dict(
     "WT"=> "WT",
@@ -136,13 +132,11 @@ t_cmap = matplotlib.colors.LinearSegmentedColormap.from_list(
         "trunc($(t_cmap_o), 0.05, 0.75)",
         original_cmap(range(0.05, stop=0.75, length=1000)))
 
-# plt.truncate_colormap(t_cmap_o, 0.25, 1.0)
 PLV_cmap = "twilight_shifted"
 param_names = wload(datadir("simulations", "CSC_Ih", "fit_param_cable_names.jld2"),  "param_names")
 dist_incr1 = Int(p_fit[findfirst(param_names .== "L")]*10000/50)
 
 pos_label_um = ["Soma", "", ["$(dist_incr1*(i))" for i =[50]]...]
-
 
 
 function plot_grids(gs, ax_cb; condition_string="no_Kd", cmap="viridis", vmin= -30,vmax=30, diff=false, plot_array = "tau", cbar_label = "Change in Time to Converged (s)", cbar_label_size=8, cond_size=8)
@@ -155,11 +149,8 @@ function plot_grids(gs, ax_cb; condition_string="no_Kd", cmap="viridis", vmin= -
         mean_peak_phase_end_array_plot_i  = mean_peak_phase_end_array_WT
         PLV_array = PLV_array_WT
     else
-        # local phase_diff_array = wload(datadir("simulations", "gapjxn_charac", save_name),  "phase_diff_array")
         local phase_diff_end_array =  wload(datadir("simulations", "gapjxn_charac", save_name),  "phase_diff_end_array")
-        # local spike_times = wload(datadir("simulations", "gapjxn_charac", save_name),  "spike_times")
         local PLV_array = wload(datadir("simulations", "gapjxn_charac", save_name),  "PLV_array")
-        # local Hilbert_phase_diff_array = wload(datadir("simulations", "gapjxn_charac", save_name),  "Hilbert_phase_diff_array")
         local mean_peak_phase_end_array = wload(datadir("simulations", "gapjxn_charac", save_name),  "mean_peak_phase_end_array")
         local tau_array = wload(datadir("simulations", "gapjxn_charac", save_name),  "tau_array")
 
@@ -184,12 +175,7 @@ function plot_grids(gs, ax_cb; condition_string="no_Kd", cmap="viridis", vmin= -
     phase_diff_end_array_plot_i[phase_diff_end_array_plot_i .<= -π]  = phase_diff_end_array_plot_i[phase_diff_end_array_plot_i .<= -π] .+ (2*π)
 
     position_array = wload(datadir("simulations", "gapjxn_charac", save_name),  "position_array")
-    # # p_fit = wload(datadir("simulations", "CSC_Ih", "fit_param_soma_Ih_fixed.jld2"), "p_fit")
-    # p_fit = wload(datadir("simulations", "CSC_Ih", "fit_param_soma_Ih_new_final_2.jld2"), "p_fit");
-    # param_names = wload(datadir("simulations", "CSC_Ih", "fit_param_names.jld2"),  "param_names")
-    # dist_incr1 = Int(p_fit[findfirst(param_names .== "L")]*10000/50)
-    
-    # pos_label_um = ["Soma", ["$(dist_incr1*(i))" for i =[25, 50]]...]
+
     ax_overall = fig.add_subplot(py"$(gs)[:,:]")
     ax_overall = pyplot_fxns.remove_axis_box_t(ax_overall; s=["top", "right", "bottom","left"])
     ax_overall.set_xticks([])
@@ -211,10 +197,6 @@ function plot_grids(gs, ax_cb; condition_string="no_Kd", cmap="viridis", vmin= -
     ax_list_t = [ax_0, ax_1_top,ax_2_top,ax_3_top,ax_4_top,ax_5_top,  ax_6, ax_5_bot, ax_4_bot, ax_3_bot, ax_2_bot, ax_1_bot]
 
     i = 1
-    # c0 = ax_0.pcolormesh( position_array, ggap_array_log,  stack(tau_array_plot_i[i, :, :])[1,:,:] ./1000, cmap=cmap, vmin=vmin, vmax=vmax, rasterized=true, )
-    
-    # tau_array_plot_i[tau_array_plot_i .> 5*30000.] .= 0.
-    # tau_array_plot_i[tau_array_plot_i .> 30000.] .= NaN
     c0 = ax_0.pcolormesh( position_array, ggap_array_log,  stack(tau_array_plot_i[i, :, :]) ./1000, cmap=cmap, vmin=vmin, vmax=vmax, rasterized=true, )
     for ax in ax_list_t
         println(i)
@@ -232,17 +214,17 @@ function plot_grids(gs, ax_cb; condition_string="no_Kd", cmap="viridis", vmin= -
         ax.set_yticks(ggap_array_log_ticks)
         ax.set_yticklabels(ggap_array_log_labels, size=6)
         ax.set_xticks(pos_label_ticks)
-        if i == 1 || i >= 7
+        if i == 1 || i >= 7 
             ax.set_xticklabels([])
         else
             ax.set_xticklabels([])
         end
         ax.set_yticks(ggap_array_log_ticks)
-
+        ax.tick_params(axis="both", which="major", length=1)
         if i == 1
             ax.set_xticklabels(pos_label_um,rotation=90, size=6)
         end
-        ax.set_title(init_phase_diff_array_labels[i], size=6, y=0.8)
+        ax.set_title(init_phase_diff_array_labels[i], size=5, y=0.8)
         if i == 1
             println(i)
             # ax = pyplot_fxns.remove_axis_box_t(ax; s=["top", "right", "bottom","left"], left_ticklabels=true, bottom_ticklabels=true)
@@ -287,29 +269,29 @@ bpad = 0.1
 
 fig.subplots_adjust(left=0.075, bottom=0.05, right=0.975, top=0.95)#, wspace=0, hspace=0)
 gs_all  = fig.add_gridspec(3, 5, height_ratios=[1,1,1],width_ratios=[1,0.05,0.25, 1, 0.05], wspace=0.02, hspace=0.3)
-gs_all_0  =  gridspec.GridSpecFromSubplotSpec(2, 2, wspace=0.25, hspace=0.5, subplot_spec=py"$(gs_all)[0,0]", width_ratios = (1, 0.1))
-gs_all_1  =  gridspec.GridSpecFromSubplotSpec(2, 2, wspace=0.25, hspace=0.5, subplot_spec=py"$(gs_all)[1,0]", width_ratios = (1, 0.1))
-gs_all_2  =  gridspec.GridSpecFromSubplotSpec(2, 2, wspace=0.25, hspace=0.5, subplot_spec=py"$(gs_all)[2,0]", width_ratios = (1, 0.1)) 
-gs_all_3  =  gridspec.GridSpecFromSubplotSpec(2, 2, wspace=0.25, hspace=0.5, subplot_spec=py"$(gs_all)[0,3]", width_ratios = (1, 0.1)) 
-gs_all_4  =  gridspec.GridSpecFromSubplotSpec(2, 2, wspace=0.25, hspace=0.5, subplot_spec=py"$(gs_all)[1,3]", width_ratios = (1, 0.1)) 
-gs_all_5  =  gridspec.GridSpecFromSubplotSpec(2, 2, wspace=0.25, hspace=0.5, subplot_spec=py"$(gs_all)[2,3]", width_ratios = (1, 0.1)) 
+gs_all_0  =  gridspec.GridSpecFromSubplotSpec(2, 2, wspace=0.25, hspace=0.25, subplot_spec=py"$(gs_all)[0,0]", width_ratios = (1, 0.1))
+gs_all_1  =  gridspec.GridSpecFromSubplotSpec(2, 2, wspace=0.25, hspace=0.25, subplot_spec=py"$(gs_all)[1,0]", width_ratios = (1, 0.1))
+gs_all_2  =  gridspec.GridSpecFromSubplotSpec(2, 2, wspace=0.25, hspace=0.25, subplot_spec=py"$(gs_all)[2,0]", width_ratios = (1, 0.1)) 
+gs_all_3  =  gridspec.GridSpecFromSubplotSpec(2, 2, wspace=0.25, hspace=0.25, subplot_spec=py"$(gs_all)[0,3]", width_ratios = (1, 0.1)) 
+gs_all_4  =  gridspec.GridSpecFromSubplotSpec(2, 2, wspace=0.25, hspace=0.25, subplot_spec=py"$(gs_all)[1,3]", width_ratios = (1, 0.1)) 
+gs_all_5  =  gridspec.GridSpecFromSubplotSpec(2, 2, wspace=0.25, hspace=0.25, subplot_spec=py"$(gs_all)[2,3]", width_ratios = (1, 0.1)) 
 
 
 
-gs_0  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.75, hspace=5, subplot_spec=py"$(gs_all_0)[0,0]")
-gs_1  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.75, hspace=5, subplot_spec=py"$(gs_all_1)[0,0]")
-gs_2  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.75, hspace=5, subplot_spec=py"$(gs_all_2)[0,0]") 
-gs_3  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.75, hspace=5, subplot_spec=py"$(gs_all_3)[0,0]") 
-gs_4  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.75, hspace=5, subplot_spec=py"$(gs_all_4)[0,0]") 
-gs_5  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.75, hspace=5, subplot_spec=py"$(gs_all_5)[0,0]") 
+gs_0  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.25, hspace=1, subplot_spec=py"$(gs_all_0)[0,0]")
+gs_1  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.25, hspace=1, subplot_spec=py"$(gs_all_1)[0,0]")
+gs_2  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.25, hspace=1, subplot_spec=py"$(gs_all_2)[0,0]") 
+gs_3  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.25, hspace=1, subplot_spec=py"$(gs_all_3)[0,0]") 
+gs_4  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.25, hspace=1, subplot_spec=py"$(gs_all_4)[0,0]") 
+gs_5  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.25, hspace=1, subplot_spec=py"$(gs_all_5)[0,0]") 
 
 
-gs_0_1  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.75, hspace=5, subplot_spec=py"$(gs_all_0)[1,0]")
-gs_1_1  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.75, hspace=5, subplot_spec=py"$(gs_all_1)[1,0]")
-gs_2_1  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.75, hspace=5, subplot_spec=py"$(gs_all_2)[1,0]") 
-gs_3_1  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.75, hspace=5, subplot_spec=py"$(gs_all_3)[1,0]") 
-gs_4_1  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.75, hspace=5, subplot_spec=py"$(gs_all_4)[1,0]") 
-gs_5_1  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.75, hspace=5, subplot_spec=py"$(gs_all_5)[1,0]") 
+gs_0_1  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.25, hspace=1, subplot_spec=py"$(gs_all_0)[1,0]")
+gs_1_1  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.25, hspace=1, subplot_spec=py"$(gs_all_1)[1,0]")
+gs_2_1  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.25, hspace=1, subplot_spec=py"$(gs_all_2)[1,0]") 
+gs_3_1  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.25, hspace=1, subplot_spec=py"$(gs_all_3)[1,0]") 
+gs_4_1  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.25, hspace=1, subplot_spec=py"$(gs_all_4)[1,0]") 
+gs_5_1  =  gridspec.GridSpecFromSubplotSpec(4, 7, wspace=0.25, hspace=1, subplot_spec=py"$(gs_all_5)[1,0]") 
 
 # colorbars ##
 ax_cb0 = fig.add_subplot(py"$(gs_all_0)[0,1]")
@@ -402,21 +384,16 @@ ax_5_0_1, ax_5_1_top_1, ax_5_1_bot_1, ax_5_2_top_1, ax_5_2_bot_1, ax_5_3_top_1, 
 
 
 
-letters = collect('A':'Z')
-ax_0_0.text(-2.5, 2.35, "$(letters[1])", transform=ax_0_0.transAxes, size=letter_size, weight="bold")
-ax_3_0.text(-2.5, 2.35, "$(letters[2])", transform=ax_3_0.transAxes, size=letter_size, weight="bold")
-ax_1_0.text(-2.5, 2.35, "$(letters[3])", transform=ax_1_0.transAxes, size=letter_size, weight="bold")
-ax_4_0.text(-2.5, 2.35, "$(letters[4])", transform=ax_4_0.transAxes, size=letter_size, weight="bold")
-ax_2_0.text(-2.5, 2.35, "$(letters[5])", transform=ax_2_0.transAxes, size=letter_size, weight="bold")
-ax_5_0.text(-2.5, 2.35, "$(letters[6])", transform=ax_5_0.transAxes, size=letter_size, weight="bold")
+ax_0_0.text(-1.7, 2.15, "$(letters[1])", transform=ax_0_0.transAxes, size=letter_size, weight="bold")
+ax_3_0.text(-1.7, 2.15, "$(letters[2])", transform=ax_3_0.transAxes, size=letter_size, weight="bold")
+ax_1_0.text(-1.7, 2.15, "$(letters[3])", transform=ax_1_0.transAxes, size=letter_size, weight="bold")
+ax_4_0.text(-1.7, 2.15, "$(letters[4])", transform=ax_4_0.transAxes, size=letter_size, weight="bold")
+ax_2_0.text(-1.7, 2.15, "$(letters[5])", transform=ax_2_0.transAxes, size=letter_size, weight="bold")
+ax_5_0.text(-1.7, 2.15, "$(letters[6])", transform=ax_5_0.transAxes, size=letter_size, weight="bold")
 
-
-# plt.savefig(plotsdir("figs", "Figure_4_5_gapjxns_2_phase_tau_$(tau_p).png"), dpi=600)
-# plt.savefig(plotsdir("figs", "Figure_4_5_gapjxns_2_phase_tau_$(tau_p).pdf"), dpi=600)
-# plt.savefig(plotsdir("figs", "Figure_4_5_gapjxns_2_phase_tau_$(tau_p).eps"), dpi=600)
-plt.savefig(plotsdir("Figure_4_gapjxns_2_phase_tau.png"), dpi=600)
-plt.savefig(plotsdir("Figure_4_gapjxns_2_phase_tau.pdf"), dpi=600)
-plt.savefig(plotsdir("Figure_4_gapjxns_2_phase_tau.eps"), dpi=600)
+plt.savefig(plotsdir("Figure_Appendix_5_gapjxns_2_phase_tau.png"), dpi=600)
+plt.savefig(plotsdir("Figure_Appendix_5_gapjxns_2_phase_tau.pdf"), dpi=600)
+plt.savefig(plotsdir("Figure_Appendix_5_gapjxns_2_phase_tau.eps"), dpi=600)
 plt.show()
 # plt.close()
 

@@ -531,11 +531,8 @@ ax_HVA.text(x_letter, y_letter_sum, "$(letters[13])", transform=ax_HVA.transAxes
 ax_SK.text(x_letter, y_letter_sum, "$(letters[14])", transform=ax_SK.transAxes, size=letter_size, weight="bold")
 
 
-
-
-
-plt.savefig(plotsdir("Figure_2_Cable_filtering_OU_Chirp.png"), dpi=600)
-plt.savefig(plotsdir("Figure_2_Cable_filtering_OU_Chirp.pdf"), dpi=600)
-plt.savefig(plotsdir("Figure_2_Cable_filtering_OU_Chirp.eps"), dpi=600)
+plt.savefig(plotsdir("Figure_Appendix_2_Cable_filtering_OU_Chirp.png"), dpi=600)
+plt.savefig(plotsdir("Figure_Appendix_2_Cable_filtering_OU_Chirp.pdf"), dpi=600)
+plt.savefig(plotsdir("Figure_Appendix_2_Cable_filtering_OU_Chirp.eps"), dpi=600)
 plt.show()
 #%%

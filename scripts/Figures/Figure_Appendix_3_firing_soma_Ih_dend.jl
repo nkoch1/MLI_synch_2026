@@ -42,7 +42,6 @@ end
 
 function plot_fI(ax, filename, col; alpha=0.5, ls="-")
     F_array =  wload(datadir("simulations", "Cable_charac", "Firing", "Firing_CSC_cable_soma_Ih_$(filename).jld2"), "F_array")
-    # Iarray =  wload(datadir("simulations", "Cable_charac", "Firing", "Firing_CSC_cable_soma_Ih_$(filename).jld2"), "Iarray")
     ax.plot(I_data, F_array, color=col, ls, alpha=alpha)
     return ax
 end
@@ -75,9 +74,9 @@ col_no_h = "tab:red"
 
 # Fig Setup
 fig = plt.figure(figsize=(7.5, 4))
-gs_all  = fig.add_gridspec(1, 2, left=0.075, right=0.95, wspace=0.5, hspace=0.5, width_ratios=[0.7, 0.3])#, height_ratios=[0.2, 0.0, 0.15, 0.15, 0.15, 0.15])
-gs_left  =  gridspec.GridSpecFromSubplotSpec(3, 2, wspace=0.3, hspace=0.75,  subplot_spec=py"$(gs_all)[0,0]") # width_ratios=[0.15, 0.1,0.1,0.1, 0.025, 0.15],
-gs_right  =  gridspec.GridSpecFromSubplotSpec(2, 1, wspace=0.5, hspace=0.6, subplot_spec=py"$(gs_all)[0,1]") #width_ratios=[0.15, 0.2, 0.1,0.1, 0.2], 
+gs_all  = fig.add_gridspec(1, 2, left=0.075, right=0.95, wspace=0.5, hspace=0.5, width_ratios=[0.7, 0.3])
+gs_left  =  gridspec.GridSpecFromSubplotSpec(3, 2, wspace=0.3, hspace=0.75,  subplot_spec=py"$(gs_all)[0,0]") 
+gs_right  =  gridspec.GridSpecFromSubplotSpec(2, 1, wspace=0.5, hspace=0.6, subplot_spec=py"$(gs_all)[0,1]") 
 
 # time series 
 ax_ts_WT = fig.add_subplot(py"$(gs_left)[0,0]")
@@ -148,8 +147,7 @@ ax_FI = plot_fI(ax_FI, "no_Td", col_no_T; alpha=1, ls="-")
 ax_FI.set_xticks([-10, 0, 10, 20])
 
 
-# ax_FI_ins = ax_FI.inset_axes([0.75, 0.2, 0.25, 0.25])#,xtick=[-35, -25] )# xlim=(x1, x2), ylim=(y1, y2), xticklabels=[], yticklabels=[])
-ax_FI_ins = ax_FI.inset_axes([0.175, 0.6, 0.275, 0.35])#,xtick=[-35, -25] )# xlim=(x1, x2), ylim=(y1, y2), xticklabels=[], yticklabels=[])
+ax_FI_ins = ax_FI.inset_axes([0.175, 0.6, 0.275, 0.35])
 ax_FI_ins = pyplot_fxns.remove_axis_box(ax_FI_ins; s=["top", "right", ])
 ax_FI_ins = plot_fI(ax_FI_ins, "WT", col_WT; alpha=1, ls="-")
 ax_FI_ins = plot_fI(ax_FI_ins, "no_Kd", col_no_Kd; alpha=1)
@@ -157,11 +155,7 @@ ax_FI_ins = plot_fI(ax_FI_ins, "no_Ad", col_no_A; alpha=1)
 ax_FI_ins = plot_fI(ax_FI_ins, "no_SKd", col_no_SK; alpha=1)
 ax_FI_ins = plot_fI(ax_FI_ins, "no_HVAd", col_no_HVA; alpha=1)
 ax_FI_ins = plot_fI(ax_FI_ins, "no_Td", col_no_T; alpha=1)
-# ax_FI_ins.set_xticks([-10, 0, 10, 20])
-# ax_FI_ins.set_xlim(-1, 1)
-# ax_FI_ins.set_ylim(25, 35)
 ax_FI_ins.set_xlim(-0.5, 0.5)
-# ax_FI_ins.set_ylim(27.5, 35)
 ax_FI_ins.set_ylim(17.5, 30)
 
 
@@ -180,8 +174,8 @@ for ax in [ax_ts_WT, ax_ts_Kd, ax_ts_Ad, ax_ts_SKd, ax_ts_HVAd, ax_ts_Td]
     ax.set_ylim(-62.5, 5)
 end
 
-plt.savefig(plotsdir("Supp_Figure_3_firing_soma_Ih_dend.png"), dpi=600)
-plt.savefig(plotsdir("Supp_Figure_3_firing_soma_Ih_dend.pdf"), dpi=600)
-plt.savefig(plotsdir("Supp_Figure_3_firing_soma_Ih_dend.eps"), dpi=600)
+plt.savefig(plotsdir("Figure_Appendix_3_firing_soma_Ih_dend.png"), dpi=600)
+plt.savefig(plotsdir("Figure_Appendix_3_firing_soma_Ih_dend.pdf"), dpi=600)
+plt.savefig(plotsdir("Figure_Appendix_3_firing_soma_Ih_dend.eps"), dpi=600)
 plt.show()
 

@@ -297,7 +297,17 @@ ax_model_coact.text(-0.05, 1.05, "$(letters[3])", transform=ax_model_coact.trans
 ax_peaks_coact.text(-0.05, 1.05, "$(letters[2])", transform=ax_peaks_coact.transAxes, size=letter_size, weight="bold")
 ax_peaks_coact_model.text(-0.05, 1.05, "$(letters[4])", transform=ax_peaks_coact_model.transAxes, size=letter_size, weight="bold")
 
-plt.savefig(plotsdir("Figure_9_Network_data_comp_poisson.png"), dpi=600)
-plt.savefig(plotsdir("Figure_9_Network_data_comp_poisson.pdf"), dpi=600)
-plt.savefig(plotsdir("Figure_9_Network_data_comp_poisson.eps"), dpi=600)
+plt.savefig(plotsdir("Figure_8_Network_data_comp_poisson.png"), dpi=600)
+plt.savefig(plotsdir("Figure_8_Network_data_comp_poisson.pdf"), dpi=600)
+plt.savefig(plotsdir("Figure_8_Network_data_comp_poisson.eps"), dpi=600)
 plt.show()
+
+#%%
+
+["%(m1) %s1"]
+mean_val = round.([mean(peak_coactivity_array_1), mean(peak_coactivity_array_2), mean(peak_coactivity_array_3), mean(peak_coactivity_array_4), mean(peak_coactivity_array_5), mean(peak_coactivity_array_6), mean(peak_coactivity_array_7)], digits=3)
+std_val = round.([std(peak_coactivity_array_1), std(peak_coactivity_array_2), std(peak_coactivity_array_3), std(peak_coactivity_array_4), std(peak_coactivity_array_5), std(peak_coactivity_array_6), std(peak_coactivity_array_7)], digits=3)
+mean_val2 = round.([mean(additional_peaks_array_1), mean(additional_peaks_array_2), mean(additional_peaks_array_3), mean(additional_peaks_array_4), mean(additional_peaks_array_5), mean(additional_peaks_array_6), mean(additional_peaks_array_7)], digits=3)
+
+["$(mean_val) ± $(std_val)% and $(mean_val2) ± $(std_val2)%" for (mean_val, std_val, mean_val2, std_val2) in zip(mean_val, std_val, mean_val2, std_val2)]
+

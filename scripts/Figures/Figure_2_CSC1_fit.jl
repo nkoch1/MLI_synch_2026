@@ -201,9 +201,9 @@ ax_AP_phase.text(x_letter, y_letter, "$(letters[2])", transform=ax_AP_phase.tran
 ax_FI.text(x_letter, y_letter, "$(letters[3])", transform=ax_FI.transAxes, size=letter_size, weight="bold")
 
 
-plt.savefig(plotsdir("Supp_Figure_2_CSC1_fit_gating.png"), dpi=600)
-plt.savefig(plotsdir("Supp_Figure_2_CSC1_fit_gating.pdf"), dpi=600)
-plt.savefig(plotsdir("Supp_Figure_2_CSC1_fit_gating.eps"), dpi=600)
+plt.savefig(plotsdir("Figure_2_CSC1_fit_gating.png"), dpi=600)
+plt.savefig(plotsdir("Figure_2_CSC1_fit_gating.pdf"), dpi=600)
+plt.savefig(plotsdir("Figure_2_CSC1_fit_gating.eps"), dpi=600)
 plt.show()
 
 #

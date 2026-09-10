@@ -463,40 +463,40 @@ function next_spike_time(t::Array; λ=50)
 end
 
 
-""" AMPA input callback function
-"""
-function condition_GrC(u, t, integrator)
-    if synchtimes <= t  && t <= synchtimes + synch_dur
-        @inbounds @views begin
-        for c in Int.(collect(1:integrator.p[31])) # for each cell 
-        lock(CSC1_network_poisson.my_lock) do
-            if  (t - integrator.p[44][c] .>= 0.) && (abs((integrator.t .- integrator.p[35][c])[1]) > integrator.p[33])
-                    integrator.u[c, 14] += 1
-                    integrator.p[44][c] += rand(Exponential(1/λ_rate_synch)*1000) 
-                end
-            end
-        end
-        end
-        return true
-    else
-        for c in Int.(collect(1:integrator.p[31])) # for each cell 
-        lock(CSC1_network_poisson.my_lock) do
-            if  (t - integrator.p[44][c] .>= 0.) && (abs((integrator.t .- integrator.p[35][c])[1]) > integrator.p[33])
-                    integrator.u[c, 14] += 1
-                    integrator.p[44][c] += rand(Exponential(1/λ_rate)*1000)
-                end
-            end
-        end
-        return true
-    end
+# """ AMPA input callback function
+# """
+# function condition_GrC(u, t, integrator)
+#     if synchtimes <= t  && t <= synchtimes + synch_dur
+#         @inbounds @views begin
+#         for c in Int.(collect(1:integrator.p[31])) # for each cell 
+#         lock(CSC1_network_poisson.my_lock) do
+#             if  (t - integrator.p[44][c] .>= 0.) && (abs((integrator.t .- integrator.p[35][c])[1]) > integrator.p[33])
+#                     integrator.u[c, 14] += 1
+#                     integrator.p[44][c] += rand(Exponential(1/λ_rate_synch)*1000) 
+#                 end
+#             end
+#         end
+#         end
+#         return true
+#     else
+#         for c in Int.(collect(1:integrator.p[31])) # for each cell 
+#         lock(CSC1_network_poisson.my_lock) do
+#             if  (t - integrator.p[44][c] .>= 0.) && (abs((integrator.t .- integrator.p[35][c])[1]) > integrator.p[33])
+#                     integrator.u[c, 14] += 1
+#                     integrator.p[44][c] += rand(Exponential(1/λ_rate)*1000)
+#                 end
+#             end
+#         end
+#         return true
+#     end
 
-end
+# end
 
 
-""" AMPA input affect function
-"""
-function affect_GrC!(integrator)
-    # do nothing
-end
+# """ AMPA input affect function
+# """
+# function affect_GrC!(integrator)
+#     # do nothing
+# end
 
 end

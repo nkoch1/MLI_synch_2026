@@ -437,9 +437,9 @@ ax_gGABA_sum.text(-0.05, 1.075, "$(letters[8])", transform=ax_gGABA_sum.transAxe
 
 
 ax_ggap_gGABA_sum.text(-0.2, 1.3, "$(letters[9])", transform=ax_ggap_gGABA_sum.transAxes, size=letter_size, weight="bold")
-plt.savefig(plotsdir("Figure_6_Network_synch_input_poisson.png"), dpi=600)
-plt.savefig(plotsdir("Figure_6_Network_synch_input_poisson.pdf"), dpi=600)
-plt.savefig(plotsdir("Figure_6_Network_synch_input_poisson.eps"), dpi=600)
+plt.savefig(plotsdir("Figure_4_Network_synch_input_poisson.png"), dpi=600)
+plt.savefig(plotsdir("Figure_4_Network_synch_input_poisson.pdf"), dpi=600)
+plt.savefig(plotsdir("Figure_4_Network_synch_input_poisson.eps"), dpi=600)
 plt.show()
 
 #%%
@@ -451,9 +451,44 @@ y = [collect(peak_coactivity_array[:,gsyn_ind_norm,:]')...]
 
 rho, p = sp.stats.spearmanr(x,y)
 
+
+mean_val = round.(mean(peak_coactivity_array[:,gsyn_ind_norm,:]', dims=1), digits=3)
+std_val = round.(std(peak_coactivity_array[:,gsyn_ind_norm,:]', dims=1), digits=3)
+
+["ggap = $(n): $(mean_val) ± $(std_val)%" for (n, mean_val, std_val) in zip(ggap_array, mean_val, std_val)]
+
+
+#%%
 # GABA
 
 x = [collect((gsyn_array * ones(1, 100))')...]
 y = [collect(peak_coactivity_array[ggap_ind_norm,:,:]')...]
 
 rho, p = sp.stats.spearmanr(x,y)
+
+
+mean_val = round.(mean(peak_coactivity_array[ggap_ind_norm,:,:]', dims=1), digits=3)
+std_val = round.(std(peak_coactivity_array[ggap_ind_norm,:,:]', dims=1), digits=3)
+
+["gGABA = $(n): $(mean_val) ± $(std_val)%" for (n, mean_val, std_val) in zip(gsyn_array, mean_val, std_val)]
+
+
+#%%
+
+
+
+# ax_1_0_coactivity.plot(bins1_mid .- 500, mean(coactivity_array_1_0, dims=1)[1, :],  color=n_colors_gsyn[gsyn_ind[1]])#
+
+mean_0_0 = mean(coactivity_array_0_0, dims=1)[1, :]
+mean_0_0_before = mean(mean_0_0[bins1_mid .< 500])
+std_0_0_before = std(mean_0_0[bins1_mid .< 500])
+
+
+mean_0_1 = mean(coactivity_array_0_1, dims=1)[1, :]
+mean_0_1_before = mean(mean_0_1[bins1_mid .< 500])
+std_0_1_before = std(mean_0_1[bins1_mid .< 500])
+
+
+mean_0_2 = mean(coactivity_array_0_2, dims=1)[1, :]
+mean_0_2_before = mean(mean_0_2[bins1_mid .< 500])
+std_0_2_before = std(mean_0_2[bins1_mid .< 500])

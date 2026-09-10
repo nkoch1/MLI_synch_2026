@@ -203,12 +203,9 @@ gNMDA_array_labels = ["$(round(i, digits=1))" for i in gNMDA_array]
 np.random.seed(0)
 # Fig Setup
 fig = plt.figure(figsize=(6.5, 5))
-# gs_all  = fig.add_gridspec(1, 2,left=0.125, right=0.975, wspace=0.35, hspace=0.5,  width_ratios=[0.5, 0.5],top=0.95, bottom=0.075)
-# gs_left =  gridspec.GridSpecFromSubplotSpec(2, 2, wspace=0.25, hspace=0.5, subplot_spec=py"$(gs_all)[0]") 
-# gs_right  =  gridspec.GridSpecFromSubplotSpec(5, 2, wspace=0.5, hspace=0.25, subplot_spec=py"$(gs_all)[1]", height_ratios=[0.25, 0.065, 0.25, 0.15,  0.5]) 
 gs_all  = fig.add_gridspec(1, 2,left=0.075, right=0.975, wspace=0.35, hspace=0.5,  width_ratios=[0.45, 0.55],top=0.95, bottom=0.075)
 gs_left =  gridspec.GridSpecFromSubplotSpec(2, 2, wspace=0.25, hspace=0.45, subplot_spec=py"$(gs_all)[0]") 
-gs_right  =  gridspec.GridSpecFromSubplotSpec(5, 2, wspace=0.5, hspace=0.25, subplot_spec=py"$(gs_all)[1]", height_ratios=[0.25, 0.065, 0.25, 0.175,  0.5]) #height_ratios=[1, 0.25, 1,1]) 
+gs_right  =  gridspec.GridSpecFromSubplotSpec(5, 2, wspace=0.5, hspace=0.25, subplot_spec=py"$(gs_all)[1]", height_ratios=[0.25, 0.065, 0.25, 0.175,  0.5]) 
 
 
 ax_ggap_sum = fig.add_subplot(py"$(gs_right)[2, 0]")
@@ -432,36 +429,55 @@ ax_ggap_sum_PLV.text(-0.05, 1.075, "$(letters[8])", transform=ax_ggap_sum_PLV.tr
 ax_ggap_gGABA_sum.text(-0.2, 1.4, "$(letters[9])", transform=ax_ggap_gGABA_sum.transAxes, size=letter_size, weight="bold")
 ax_ggap_gGABA_sum_PLV.text(-0.2, 1.4, "$(letters[10])", transform=ax_ggap_gGABA_sum_PLV.transAxes, size=letter_size, weight="bold")
 
-plt.savefig(plotsdir("Figure_7_Network_synch_input_nsynch_NMDA_poisson.png"), dpi=600)
-plt.savefig(plotsdir("Figure_7_Network_synch_input_nsynch_NMDA_poisson.pdf"), dpi=600)
-plt.savefig(plotsdir("Figure_7_Network_synch_input_nsynch_NMDA_poisson.eps"), dpi=600)
+plt.savefig(plotsdir("Figure_5_Network_synch_input_nsynch_NMDA_poisson.png"), dpi=600)
+plt.savefig(plotsdir("Figure_5_Network_synch_input_nsynch_NMDA_poisson.pdf"), dpi=600)
+plt.savefig(plotsdir("Figure_5_Network_synch_input_nsynch_NMDA_poisson.eps"), dpi=600)
 plt.show()
 
 #%%
 
 @pyimport scipy as sp
 
-# lambda peak
+#%% lambda peak
 x = [collect((λ_rate_synch * ones(1, 100))')...]
 y = [collect(peak_coactivity_array[:,NMDA_ind_norm,:]')...]
 
 rho, p = sp.stats.spearmanr(x,y)
 
-# lambda PLV
+mean_val = round.(mean(peak_coactivity_array[:,NMDA_ind_norm,:]', dims=1), digits=3)
+std_val = round.(std(peak_coactivity_array[:,NMDA_ind_norm,:]', dims=1), digits=3)
+
+["$(n) x: $(mean_val) ± $(std_val)%" for (n, mean_val, std_val) in zip(λ_rate_synch/50, mean_val, std_val)]
+
+#%% lambda PLV
 x = [collect((λ_rate_synch * ones(1, 100))')...]
 y = [collect(delta_PLV_array[:,NMDA_ind_norm,:]')...]
 
 rho, p = sp.stats.spearmanr(x,y)
-@pyimport scipy as sp
 
-# NMDA peak
-x = [collect((λ_rate_synch * ones(1, 100))')...]
+mean_val = round.(mean(delta_PLV_array[:,NMDA_ind_norm,:]', dims=1), digits=3)
+std_val = round.(std(delta_PLV_array[:,NMDA_ind_norm,:]', dims=1), digits=3)
+
+["$(n) x: $(mean_val) ± $(std_val)" for (n, mean_val, std_val) in zip(λ_rate_synch/50, mean_val, std_val)]
+
+
+#%% NMDA peak
+@pyimport scipy as sp
+x = [collect((NMDA_array * ones(1, 100))')...]
 y = [collect(peak_coactivity_array[n_ind_norm,:,:]')...]
 
 rho, p = sp.stats.spearmanr(x,y)
 
-# NMDA PLV
-x = [collect((λ_rate_synch * ones(1, 100))')...]
+mean_val = round.(mean(peak_coactivity_array[n_ind_norm,:,:]', dims=1), digits=3)
+std_val = round.(std(peak_coactivity_array[n_ind_norm,:,:]', dims=1), digits=3)
+
+["gNMDA = $(n): $(mean_val) ± $(std_val)%" for (n, mean_val, std_val) in zip(NMDA_array, mean_val, std_val)]
+#%% NMDA PLV
+x = [collect((NMDA_array * ones(1, 100))')...]
 y = [collect(delta_PLV_array[n_ind_norm,:,:]')...]
 
 rho, p = sp.stats.spearmanr(x,y)
+mean_val = round.(mean(delta_PLV_array[n_ind_norm,:,:]', dims=1), digits=3)
+std_val = round.(std(delta_PLV_array[n_ind_norm,:,:]', dims=1), digits=3)
+
+["gNMDA = $(n): $(mean_val) ± $(std_val)" for (n, mean_val, std_val) in zip(NMDA_array, mean_val, std_val)]

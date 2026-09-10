@@ -218,22 +218,32 @@ ax_NMDA_sum.text(-0.15, 1.1, "$(letters[2])", transform=ax_NMDA_sum.transAxes, s
 ax_n_NMDA_sum.text(-0.2, 1.3, "$(letters[3])", transform=ax_n_NMDA_sum.transAxes, size=letter_size, weight="bold")
 
 
-plt.savefig(plotsdir( "Supp_Figure_4_Network_synch_input_nsynch_NMDA_poisson_ggap_zero.png"), dpi=600)
-plt.savefig(plotsdir( "Supp_Figure_4_Network_synch_input_nsynch_NMDA_poisson_ggap_zero.pdf"), dpi=600)
-plt.savefig(plotsdir( "Supp_Figure_4_Network_synch_input_nsynch_NMDA_poisson_ggap_zero.eps"), dpi=600)
+plt.savefig(plotsdir( "Figure_6_Network_synch_input_nsynch_NMDA_poisson_ggap_zero.png"), dpi=600)
+plt.savefig(plotsdir( "Figure_6_Network_synch_input_nsynch_NMDA_poisson_ggap_zero.pdf"), dpi=600)
+plt.savefig(plotsdir( "Figure_6_Network_synch_input_nsynch_NMDA_poisson_ggap_zero.eps"), dpi=600)
 plt.show()
 
 #%%
 
 @pyimport scipy as sp
-
+#%%
 x = [collect((NMDA_array_ggap * ones(1, 100))')...]
 y = [collect(delta_PLV_array_ggap[n_ind_norm_ggap,:,:]')...]
 
 rho, p = sp.stats.spearmanr(x,y)
 
+mean_val = round.(mean(delta_PLV_array_ggap[n_ind_norm_ggap,:,:]', dims=1), digits=3)
+std_val = round.(std(delta_PLV_array_ggap[n_ind_norm_ggap,:,:]', dims=1), digits=3)
 
+["gNMDA = $(n): $(mean_val) ± $(std_val)%" for (n, mean_val, std_val) in zip(NMDA_array_ggap, mean_val, std_val)]
+#%%
 x = [collect((λ_rate_synch_ggap * ones(1, 100))')...]
 y = [collect(delta_PLV_array_ggap[:,NMDA_ind_norm_ggap,:]')...]
 
 rho, p = sp.stats.spearmanr(x,y)
+
+mean_val = round.(mean(delta_PLV_array_ggap[:,NMDA_ind_norm_ggap,:]', dims=1), digits=3)
+std_val = round.(std(delta_PLV_array_ggap[:,NMDA_ind_norm_ggap,:]', dims=1), digits=3)
+
+["$(n) x: $(mean_val) ± $(std_val)%" for (n, mean_val, std_val) in zip(λ_rate_synch_ggap/50, mean_val, std_val)]
+

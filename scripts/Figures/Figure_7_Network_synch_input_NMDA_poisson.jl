@@ -66,7 +66,6 @@ ggap_ind_norm = findfirst(ggap_array .== 0.6)
 
 
 
-# fname_save = "Network_CSC1_NMDA"
 fname_save = "Network_CSC1_NMDA_CC_poisson"
 
 param_0_0 = Dict(
@@ -429,35 +428,59 @@ ax_gGABA_sum_PLV.text(-0.05, 1.075, "$(letters[8])", transform=ax_gGABA_sum_PLV.
 ax_ggap_gGABA_sum.text(-0.2, 1.4, "$(letters[9])", transform=ax_ggap_gGABA_sum.transAxes, size=letter_size, weight="bold")
 ax_ggap_gGABA_sum_PLV.text(-0.2, 1.4, "$(letters[10])", transform=ax_ggap_gGABA_sum_PLV.transAxes, size=letter_size, weight="bold")
 
-plt.savefig(plotsdir("Figure_8_Network_synch_input_NMDA_poisson.png"), dpi=600)
-plt.savefig(plotsdir("Figure_8_Network_synch_input_NMDA_poisson.pdf"), dpi=600)
-plt.savefig(plotsdir("Figure_8_Network_synch_input_NMDA_poisson.eps"), dpi=600)
+plt.savefig(plotsdir("Figure_7_Network_synch_input_NMDA_poisson.png"), dpi=600)
+plt.savefig(plotsdir("Figure_7_Network_synch_input_NMDA_poisson.pdf"), dpi=600)
+plt.savefig(plotsdir("Figure_7_Network_synch_input_NMDA_poisson.eps"), dpi=600)
 plt.show()
 
 # %%
 
 @pyimport scipy as sp
 
+#%%
 # ggap peak coactivity
 x = [collect((ggap_array * ones(1, 100))')...]
 y = [collect(peak_coactivity_array[gsyn_ind_norm,:,:]')...]
 
 rho, p = sp.stats.spearmanr(x,y)
 
+mean_val = round.(mean(peak_coactivity_array[gsyn_ind_norm,:,:]', dims=1), digits=3)
+std_val = round.(std(peak_coactivity_array[gsyn_ind_norm,:,:]', dims=1), digits=3)
+
+["ggap = $(n): $(mean_val) ± $(std_val)%" for (n, mean_val, std_val) in zip(ggap_array, mean_val, std_val)]
+
+
+#%%
 # GABA peak coactivity
 x = [collect((gsyn_array * ones(1, 100))')...]
 y = [collect(peak_coactivity_array[:,ggap_ind_norm,:]')...]
 
 rho, p = sp.stats.spearmanr(x,y)
+mean_val = round.(mean(peak_coactivity_array[:,ggap_ind_norm,:]', dims=1), digits=3)
+std_val = round.(std(peak_coactivity_array[:,ggap_ind_norm,:]', dims=1), digits=3)
 
+["gGABA = $(n): $(mean_val) ± $(std_val)%" for (n, mean_val, std_val) in zip(gsyn_array, mean_val, std_val)]
+
+#%%
 # ggap PLV
 x = [collect((ggap_array * ones(1, 100))')...]
 y = [collect(delta_PLV_array[gsyn_ind_norm,:,:]')...]
 
 rho, p = sp.stats.spearmanr(x,y)
 
+mean_val = round.(mean(delta_PLV_array[gsyn_ind_norm,:,:]', dims=1), digits=3)
+std_val = round.(std(delta_PLV_array[gsyn_ind_norm,:,:]', dims=1), digits=3)
+
+["ggap = $(n): $(mean_val) ± $(std_val)" for (n, mean_val, std_val) in zip(ggap_array, mean_val, std_val)]
+
+
+#%%
 # GABA PLV
 x = [collect((gsyn_array * ones(1, 100))')...]
 y = [collect(delta_PLV_array[:,ggap_ind_norm,:]')...]
 
 rho, p = sp.stats.spearmanr(x,y)
+mean_val = round.(mean(delta_PLV_array[:,ggap_ind_norm,:]', dims=1), digits=3)
+std_val = round.(std(delta_PLV_array[:,ggap_ind_norm,:]', dims=1), digits=3)
+
+["gGABA = $(n): $(mean_val) ± $(std_val)" for (n, mean_val, std_val) in zip(gsyn_array, mean_val, std_val)]
