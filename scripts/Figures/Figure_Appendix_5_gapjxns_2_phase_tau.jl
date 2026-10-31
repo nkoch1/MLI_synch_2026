@@ -383,6 +383,7 @@ ax_4_0_1, ax_4_1_top_1, ax_4_1_bot_1, ax_4_2_top_1, ax_4_2_bot_1, ax_4_3_top_1, 
 ax_5_0_1, ax_5_1_top_1, ax_5_1_bot_1, ax_5_2_top_1, ax_5_2_bot_1, ax_5_3_top_1, ax_5_3_bot_1, ax_5_4_top_1, ax_5_4_bot_1, ax_5_5_top_1, ax_5_5_bot_1, ax_5_6_1, ax_cb5_1 = plot_grids(gs_5_1, ax_cb5_1; condition_string="no_SKd", cmap=t_cmap, vmin=0, vmax=tau_max, cbar_label = "Synch. " *L"$\tau$" * " (s)")
 
 
+letters = collect('A':'Z')
 
 ax_0_0.text(-1.7, 2.15, "$(letters[1])", transform=ax_0_0.transAxes, size=letter_size, weight="bold")
 ax_3_0.text(-1.7, 2.15, "$(letters[2])", transform=ax_3_0.transAxes, size=letter_size, weight="bold")

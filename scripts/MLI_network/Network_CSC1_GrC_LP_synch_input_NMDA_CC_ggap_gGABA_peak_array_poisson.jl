@@ -118,7 +118,7 @@ for gsyn_i in gsyn_array
         
         # Load coactivity data
         peak_coactivity = wload(
-            datadir("simulations", "Network", "new", savename(fname, param, "jld2")), 
+            datadir("simulations", "Network", savename(fname, param, "jld2")), 
             "peak_coactivity_array"
         )
         peak_coactivity_array[i, j, :] = peak_coactivity
@@ -127,25 +127,25 @@ for gsyn_i in gsyn_array
 
         # Load phase-locking values (PLV) for different time windows
         PLV_before = wload(
-            datadir("simulations", "Network", "new", savename(fname, param, "jld2")), 
+            datadir("simulations", "Network", savename(fname, param, "jld2")), 
             "PLV_mean_before_array"
         )
         PLV_after_50 = wload(
-            datadir("simulations", "Network", "new", savename(fname, param, "jld2")), 
+            datadir("simulations", "Network", savename(fname, param, "jld2")), 
             "PLV_mean_after_50_array"
         )
 
         # Load secondary peak analysis
         additional_peaks = wload(
-            datadir("simulations", "Network", "new", savename(fname, param, "jld2")), 
+            datadir("simulations", "Network", savename(fname, param, "jld2")), 
             "additional_peaks"
         )
         additional_peak_amp = wload(
-            datadir("simulations", "Network", "new", savename(fname, param, "jld2")), 
+            datadir("simulations", "Network", savename(fname, param, "jld2")), 
             "additional_peak_amp"
         )
         additional_peak_prom = wload(
-            datadir("simulations", "Network", "new", savename(fname, param, "jld2")), 
+            datadir("simulations", "Network", savename(fname, param, "jld2")), 
             "additional_peak_prom"
         )
 
@@ -177,7 +177,7 @@ param_save = Dict(
 
 # Save all aggregated results to file
 wsave(
-    datadir("simulations", "Network", "new", savename(fname_save, param_save, "jld2")),
+    datadir("simulations", "Network", savename(fname_save, param_save, "jld2")),
     @strdict fname_save peak_coactivity_array peak_coactivity_array_mean peak_coactivity_array_std 
              gsyn_array ggap_array PLV_before_array  PLV_after_50_array 
              PLV_mean_before_array  PLV_mean_after_50_array 

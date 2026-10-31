@@ -44,14 +44,14 @@ param_save = Dict(
 
 # fname_save = "Network_CSC1"
 fname_save = "Network_CSC1_nsynch_array_poisson"
-peak_coactivity_array = wload(datadir("simulations", "Network", "new",  savename(fname_save, param_save, "jld2")), "peak_coactivity_array");
-peak_coactivity_array_mean = wload(datadir("simulations", "Network", "new",  savename(fname_save, param_save, "jld2")), "peak_coactivity_array_mean");
-PLV_before_array = wload(datadir("simulations", "Network", "new",  savename(fname_save, param_save, "jld2")), "PLV_before_array");
-PLV_before_array_mean = wload(datadir("simulations", "Network", "new",  savename(fname_save, param_save, "jld2")), "PLV_mean_before_array");
-PLV_array = wload(datadir("simulations", "Network", "new",  savename(fname_save, param_save, "jld2")), "PLV_after_50_array");
-PLV_array_mean = wload(datadir("simulations", "Network", "new",  savename(fname_save, param_save, "jld2")), "PLV_mean_after_50_array");
-gsyn_array = wload(datadir("simulations", "Network", "new",  savename(fname_save, param_save, "jld2")), "gsyn_array");
-ggap_array = wload(datadir("simulations", "Network", "new",  savename(fname_save, param_save, "jld2")), "ggap_array");
+peak_coactivity_array = wload(datadir("simulations", "Network",  savename(fname_save, param_save, "jld2")), "peak_coactivity_array");
+peak_coactivity_array_mean = wload(datadir("simulations", "Network",  savename(fname_save, param_save, "jld2")), "peak_coactivity_array_mean");
+PLV_before_array = wload(datadir("simulations", "Network",  savename(fname_save, param_save, "jld2")), "PLV_before_array");
+PLV_before_array_mean = wload(datadir("simulations", "Network",  savename(fname_save, param_save, "jld2")), "PLV_mean_before_array");
+PLV_array = wload(datadir("simulations", "Network",  savename(fname_save, param_save, "jld2")), "PLV_after_50_array");
+PLV_array_mean = wload(datadir("simulations", "Network",  savename(fname_save, param_save, "jld2")), "PLV_mean_after_50_array");
+gsyn_array = wload(datadir("simulations", "Network",  savename(fname_save, param_save, "jld2")), "gsyn_array");
+ggap_array = wload(datadir("simulations", "Network",  savename(fname_save, param_save, "jld2")), "ggap_array");
 
 
 delta_PLV_array = PLV_array .- PLV_before_array
@@ -78,12 +78,12 @@ param_0_0 = Dict(
             "synch_dur" => synch_dur,
             "tau_GABA" => tau_GABA,
         )
-peak_coactivity_array_0_0 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_0_0, "jld2")), "peak_coactivity_array");
-psth_density_array_0_0 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_0_0, "jld2")), "psth_density_array");
-coactivity_array_0_0 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_0_0, "jld2")), "coactivity_array");
-ncells = wload(datadir("simulations", "Network", "new", savename(fname_save, param_0_0, "jld2")), "ncells")
-solu_0_0 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_0_0, "jld2")), "solu");
-sol_t_0_0 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_0_0, "jld2")), "solt");
+peak_coactivity_array_0_0 = wload(datadir("simulations", "Network", savename(fname_save, param_0_0, "jld2")), "peak_coactivity_array");
+psth_density_array_0_0 = wload(datadir("simulations", "Network", savename(fname_save, param_0_0, "jld2")), "psth_density_array");
+coactivity_array_0_0 = wload(datadir("simulations", "Network", savename(fname_save, param_0_0, "jld2")), "coactivity_array");
+ncells = wload(datadir("simulations", "Network", savename(fname_save, param_0_0, "jld2")), "ncells")
+solu_0_0 = wload(datadir("simulations", "Network", savename(fname_save, param_0_0, "jld2")), "solu");
+sol_t_0_0 = wload(datadir("simulations", "Network", savename(fname_save, param_0_0, "jld2")), "solt");
 sol_u_0_0 = reduce(hcat, solu_0_0)
 
 
@@ -97,12 +97,12 @@ param_0_1 = Dict(
             "synch_dur" => synch_dur,
             "tau_GABA" => tau_GABA,
         )
-peak_coactivity_array_0_1 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_0_1, "jld2")), "peak_coactivity_array");
-psth_density_array_0_1 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_0_1, "jld2")), "psth_density_array");
-coactivity_array_0_1 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_0_1, "jld2")), "coactivity_array");
-ncells = wload(datadir("simulations", "Network", "new", savename(fname_save, param_0_1, "jld2")), "ncells")
-solu_0_1 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_0_1, "jld2")), "solu");
-sol_t_0_1 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_0_1, "jld2")), "solt");
+peak_coactivity_array_0_1 = wload(datadir("simulations", "Network", savename(fname_save, param_0_1, "jld2")), "peak_coactivity_array");
+psth_density_array_0_1 = wload(datadir("simulations", "Network", savename(fname_save, param_0_1, "jld2")), "psth_density_array");
+coactivity_array_0_1 = wload(datadir("simulations", "Network", savename(fname_save, param_0_1, "jld2")), "coactivity_array");
+ncells = wload(datadir("simulations", "Network", savename(fname_save, param_0_1, "jld2")), "ncells")
+solu_0_1 = wload(datadir("simulations", "Network", savename(fname_save, param_0_1, "jld2")), "solu");
+sol_t_0_1 = wload(datadir("simulations", "Network", savename(fname_save, param_0_1, "jld2")), "solt");
 sol_u_0_1 = reduce(hcat, solu_0_1)
 
 
@@ -119,12 +119,12 @@ param_1_0 = Dict(
             "synch_dur" => synch_dur,
             "tau_GABA" => tau_GABA,
         )
-peak_coactivity_array_1_0 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_1_0, "jld2")), "peak_coactivity_array");
-psth_density_array_1_0 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_1_0, "jld2")), "psth_density_array");
-coactivity_array_1_0 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_1_0, "jld2")), "coactivity_array");
-ncells = wload(datadir("simulations", "Network", "new", savename(fname_save, param_1_0, "jld2")), "ncells")
-solu_1_0 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_1_0, "jld2")), "solu");
-sol_t_1_0 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_1_0, "jld2")), "solt");
+peak_coactivity_array_1_0 = wload(datadir("simulations", "Network", savename(fname_save, param_1_0, "jld2")), "peak_coactivity_array");
+psth_density_array_1_0 = wload(datadir("simulations", "Network", savename(fname_save, param_1_0, "jld2")), "psth_density_array");
+coactivity_array_1_0 = wload(datadir("simulations", "Network", savename(fname_save, param_1_0, "jld2")), "coactivity_array");
+ncells = wload(datadir("simulations", "Network", savename(fname_save, param_1_0, "jld2")), "ncells")
+solu_1_0 = wload(datadir("simulations", "Network", savename(fname_save, param_1_0, "jld2")), "solu");
+sol_t_1_0 = wload(datadir("simulations", "Network", savename(fname_save, param_1_0, "jld2")), "solt");
 sol_u_1_0 = reduce(hcat, solu_1_0)
 
 
@@ -138,12 +138,12 @@ param_1_1 = Dict(
             "synch_dur" => synch_dur,
             "tau_GABA" => tau_GABA,
         )
-peak_coactivity_array_1_1 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_1_1, "jld2")), "peak_coactivity_array");
-psth_density_array_1_1 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_1_1, "jld2")), "psth_density_array");
-coactivity_array_1_1 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_1_1, "jld2")), "coactivity_array");
-ncells = wload(datadir("simulations", "Network", "new", savename(fname_save, param_1_1, "jld2")), "ncells")
-solu_1_1 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_1_1, "jld2")), "solu");
-sol_t_1_1 = wload(datadir("simulations", "Network", "new", savename(fname_save, param_1_1, "jld2")), "solt");
+peak_coactivity_array_1_1 = wload(datadir("simulations", "Network", savename(fname_save, param_1_1, "jld2")), "peak_coactivity_array");
+psth_density_array_1_1 = wload(datadir("simulations", "Network", savename(fname_save, param_1_1, "jld2")), "psth_density_array");
+coactivity_array_1_1 = wload(datadir("simulations", "Network", savename(fname_save, param_1_1, "jld2")), "coactivity_array");
+ncells = wload(datadir("simulations", "Network", savename(fname_save, param_1_1, "jld2")), "ncells")
+solu_1_1 = wload(datadir("simulations", "Network", savename(fname_save, param_1_1, "jld2")), "solu");
+sol_t_1_1 = wload(datadir("simulations", "Network", savename(fname_save, param_1_1, "jld2")), "solt");
 sol_u_1_1 = reduce(hcat, solu_1_1)
 
 

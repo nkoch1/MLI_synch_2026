@@ -74,14 +74,14 @@ param_save_ggap_GABA = Dict(
 
 fname_save = "Network_CSC1_nsynch_array_poisson"
 
-peak_coactivity_array_ggap = wload(datadir("simulations", "Network", "new", savename(fname_save, param_save_ggap, "jld2")), "peak_coactivity_array");
-peak_coactivity_array_mean_ggap = wload(datadir("simulations", "Network", "new", savename(fname_save, param_save_ggap, "jld2")), "peak_coactivity_array_mean");
-PLV_before_array_ggap = wload(datadir("simulations", "Network", "new", savename(fname_save, param_save_ggap, "jld2")), "PLV_before_array");
-PLV_before_array_mean_ggap = wload(datadir("simulations", "Network", "new", savename(fname_save, param_save_ggap, "jld2")), "PLV_mean_before_array");
-PLV_after_array_ggap = wload(datadir("simulations", "Network", "new", savename(fname_save, param_save_ggap, "jld2")), "PLV_after_50_array");
-PLV_after_array_mean_ggap = wload(datadir("simulations", "Network", "new", savename(fname_save, param_save_ggap, "jld2")), "PLV_mean_after_50_array");
-λ_rate_synch_ggap = wload(datadir("simulations", "Network", "new", savename(fname_save, param_save_ggap, "jld2")), "n_array");
-NMDA_array_ggap = wload(datadir("simulations", "Network", "new", savename(fname_save, param_save_ggap, "jld2")), "NMDA_array");
+peak_coactivity_array_ggap = wload(datadir("simulations", "Network", savename(fname_save, param_save_ggap, "jld2")), "peak_coactivity_array");
+peak_coactivity_array_mean_ggap = wload(datadir("simulations", "Network", savename(fname_save, param_save_ggap, "jld2")), "peak_coactivity_array_mean");
+PLV_before_array_ggap = wload(datadir("simulations", "Network", savename(fname_save, param_save_ggap, "jld2")), "PLV_before_array");
+PLV_before_array_mean_ggap = wload(datadir("simulations", "Network", savename(fname_save, param_save_ggap, "jld2")), "PLV_mean_before_array");
+PLV_after_array_ggap = wload(datadir("simulations", "Network", savename(fname_save, param_save_ggap, "jld2")), "PLV_after_50_array");
+PLV_after_array_mean_ggap = wload(datadir("simulations", "Network", savename(fname_save, param_save_ggap, "jld2")), "PLV_mean_after_50_array");
+λ_rate_synch_ggap = wload(datadir("simulations", "Network", savename(fname_save, param_save_ggap, "jld2")), "n_array");
+NMDA_array_ggap = wload(datadir("simulations", "Network", savename(fname_save, param_save_ggap, "jld2")), "NMDA_array");
 
 delta_PLV_array_ggap = PLV_after_array_ggap .- PLV_before_array_ggap
 delta_PLV_array_mean_ggap = PLV_after_array_mean_ggap .- PLV_before_array_mean_ggap

@@ -223,6 +223,44 @@ pairwise_ind = stack([[x,y] for (i,x) in enumerate(1:ncells), (j,y) in enumerate
 npairs = size(pairwise_ind)[2]  # Total number of cell pairs
 
 # Discrete callbacks for event detection
+
+""" AMPA input callback function
+"""
+function condition_GrC(u, t, integrator)
+    if synchtimes <= t  && t <= synchtimes + synch_dur
+        @inbounds @views begin
+        for c in Int.(collect(1:integrator.p[31])) # for each cell 
+        lock(CSC1_network_poisson.my_lock) do
+            if  (t - integrator.p[44][c] .>= 0.) && (abs((integrator.t .- integrator.p[35][c])[1]) > integrator.p[33])
+                    integrator.u[c, 14] += 1
+                    integrator.p[44][c] += rand(Exponential(1/λ_rate_synch)*1000) 
+                end
+            end
+        end
+        end
+        return true
+    else
+        for c in Int.(collect(1:integrator.p[31])) # for each cell 
+        lock(CSC1_network_poisson.my_lock) do
+            if  (t - integrator.p[44][c] .>= 0.) && (abs((integrator.t .- integrator.p[35][c])[1]) > integrator.p[33])
+                    integrator.u[c, 14] += 1
+                    integrator.p[44][c] += rand(Exponential(1/λ_rate)*1000)
+                end
+            end
+        end
+        return true
+    end
+
+end
+
+
+""" AMPA input affect function
+"""
+function affect_GrC!(integrator)
+    # do nothing
+end
+
+
 cb = DiscreteCallback(V_detect, affect!; save_positions=(false,false))  # Action potential detection
 cb_GrC = DiscreteCallback(condition_GrC, affect_GrC!; save_positions=(false,false))  # GrC input events
 
@@ -397,9 +435,7 @@ param = Dict(
 fname_save = "Network_CSC1_NMDA_CC_poisson"
 wsave(
     datadir("simulations", "Network", savename(fname_save, param, "jld2")),
-    @strdict fname_net peak_coactivity_array psth_density_array coactivity_array ncells solu solt 
-             PLV_mean_before_array  PLV_mean_after_50_array 
-             additional_peaks additional_peak_amp additional_peak_prom  
+    @strdict fname_net peak_coactivity_array psth_density_array coactivity_array ncells solu solt  PLV_mean_before_array  PLV_mean_after_50_array  additional_peaks additional_peak_amp additional_peak_prom  
 )
 
 

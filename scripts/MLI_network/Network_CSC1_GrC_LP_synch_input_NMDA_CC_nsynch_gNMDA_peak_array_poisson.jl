@@ -120,20 +120,20 @@ for λ_rate_synch_i in n_array
         )
 
         # Load coactivity data
-        peak_coactivity = wload(datadir("simulations", "Network", "new", savename(fname, param, "jld2")), "peak_coactivity_array");
+        peak_coactivity = wload(datadir("simulations", "Network", savename(fname, param, "jld2")), "peak_coactivity_array");
         peak_coactivity_array[i,j, :] = peak_coactivity
         peak_coactivity_array_mean[i,j] = mean(peak_coactivity)
         peak_coactivity_array_std[i,j] = std(peak_coactivity)
 
         # Load phase-locking values (PLV) for different time windows
-        PLV_before = wload(datadir("simulations", "Network", "new", savename(fname, param, "jld2")), "PLV_mean_before_array") 
-        PLV_after_50 = wload(datadir("simulations", "Network", "new", savename(fname, param, "jld2")), "PLV_mean_after_50_array")
+        PLV_before = wload(datadir("simulations", "Network", savename(fname, param, "jld2")), "PLV_mean_before_array") 
+        PLV_after_50 = wload(datadir("simulations", "Network", savename(fname, param, "jld2")), "PLV_mean_after_50_array")
 
 
         # Load secondary peak analysis
-        additional_peaks = wload(datadir("simulations", "Network", "new", savename(fname, param, "jld2")), "additional_peaks")
-        additional_peak_amp  = wload(datadir("simulations", "Network", "new", savename(fname, param, "jld2")), "additional_peak_amp")
-        additional_peak_prom = wload(datadir("simulations", "Network", "new", savename(fname, param, "jld2")), "additional_peak_prom")
+        additional_peaks = wload(datadir("simulations", "Network", savename(fname, param, "jld2")), "additional_peaks")
+        additional_peak_amp  = wload(datadir("simulations", "Network", savename(fname, param, "jld2")), "additional_peak_amp")
+        additional_peak_prom = wload(datadir("simulations", "Network", savename(fname, param, "jld2")), "additional_peak_prom")
 
         # Store PLV results
         PLV_before_array[i,j, :] = PLV_before
@@ -170,6 +170,6 @@ param_save = Dict(
     "synch_dur" => synch_dur,      # input duration (ms)
     "tau_GABA" => tau_GABA,        # GABA decay time constant (ms)
 )
-wsave(datadir("simulations", "Network", "new", savename(fname_save, param_save, "jld2")),  @strdict fname_save peak_coactivity_array peak_coactivity_array_mean peak_coactivity_array_std n_array NMDA_array  PLV_before_array PLV_after_array PLV_after_50_array PLV_mean_before_array PLV_mean_after_array PLV_mean_after_50_array additional_peaks_array additional_peaks_array_mean additional_peak_amp_array additional_peak_prom_array)
+wsave(datadir("simulations", "Network", savename(fname_save, param_save, "jld2")),  @strdict fname_save peak_coactivity_array peak_coactivity_array_mean peak_coactivity_array_std n_array NMDA_array  PLV_before_array PLV_after_array PLV_after_50_array PLV_mean_before_array PLV_mean_after_array PLV_mean_after_50_array additional_peaks_array additional_peaks_array_mean additional_peak_amp_array additional_peak_prom_array)
 
 

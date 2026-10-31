@@ -37,7 +37,8 @@ gAMPA = 1.2  # AMPA receptor conductance (nS)
 bin_size = 2  # Bin size for histogram calculations (ms)
 Ihold_scale = 0.2  # Scaling factor for holding current
 syn_delay = 5.0  # Synaptic transmission delay (ms)
-λ_rate_synch = 700.0  # Mean firing rate for input 
+# λ_rate_synch = 700.0  # Mean firing rate for input 
+λ_rate_synch = 200.0  # Mean firing rate for input 
 NMDA_scale = 0.0  # NMDA receptor scaling (0.0 = no NMDA component)
 synch_dur = 2.0  # Duration of input (ms)
 tau_GABA = 1.9  # Time constant for GABA synaptic decay (ms)
@@ -55,6 +56,7 @@ fname_save = "Network_CSC1_nsynch_array_poisson"  # Output file name prefix
 # Parameter sweep arrays for parameter exploration
 ggap_array = [0.0, 0.6, 1.2, 1.8, 2.4, 3.0]  # Gap junction conductance values (nS)
 gsyn_array = [0.0, 1.0, 2.0, 3.0, 4.0, 5.0]  # Synaptic conductance values (nS)
+# gsyn_array = [0.0, 1.0, 2.0, 3.0]  # Synaptic conductance values (nS)
 
 
 
@@ -130,7 +132,6 @@ param_save = Dict(
 # Save all aggregated coactivity data and parameter arrays to file
 wsave(
     datadir("simulations", "Network", savename(fname_save, param_save, "jld2")),  
-    @strdict fname_save peak_coactivity_array peak_coactivity_array_mean 
-             peak_coactivity_array_std gsyn_array ggap_array
+    @strdict fname_save peak_coactivity_array peak_coactivity_array_mean peak_coactivity_array_std gsyn_array ggap_array
 )
 
